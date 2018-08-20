@@ -1,0 +1,118 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meat charset="utf-8">
+    <title>Login &amp; Registration</title>
+    <style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+    body {
+        padding: 20px;
+    }
+    h2 {
+        margin: 10px 0;
+    }
+    .message {
+        margin: 20px;
+    }
+    .error {
+        color: red;
+    }
+    .success {
+        color: green;
+    }
+    .info {
+        color: blue;
+    }
+    .container {
+        display: inline-block;
+        width: 450px;
+        vertical-align: top;
+        margin: 10px;
+    }
+    form {
+        display: inline-block;
+        margin-bottom: 20px;
+        background-color: #DDF;
+        outline: 2px solid black;
+        padding: 20px;
+    }
+    label {
+        display: inline-block;
+        min-width: 160px;
+        text-align: right;
+        margin-right: 10px;
+    }
+    input[type="date"] {
+        padding:5px;
+        padding-right:45px;
+    }
+    div.form-row {
+        margin: 10px 0;
+    }
+    
+    input[type="submit"] {
+        margin-top: 8px;
+        margin-left: 170px;
+    }
+    </style>
+</head>
+<body>
+    <h1>Login &amp; Registration</h1>
+    {% if messages %}
+        <ul>
+            {% for message in messages %}
+                <p class="message {{message.tags}}">{{message.tags}}: {{message}}</p>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <div class="container">
+        <h2>Registration</h2>
+        <form action="/register" method="post">
+            {% csrf_token %}
+            <div class="form-row">
+                <label for="registration-input-fname">First Name:</label>
+                <input id="registration-input-fname" type="text" name="fname" required>
+            </div>
+            <div class="form-row">
+                <label for="registration-input-lname">Last Name:</label>
+                <input id="registration-input-lname" type="text" name="lname" required>
+            </div>
+            <div class="form-row">
+                <label for="registration-input-email">Email:</label>
+                <input id="registration-input-email" type="text" name="email" required>
+            </div>
+            <div class="form-row">
+                <label for="registration-input-birthday">Birthday:</label>
+                <input id="registration-input-birthday" type="date" name="birthday" required>
+            </div>
+            <div class="form-row">
+                <label for="registration-input-password">Password:</label>
+                <input id="registration-input-password" type="password" name="password" required>
+            </div>
+            <div class="form-row">
+                <label for="registration-input-password-conf">Confirm password:</label>
+                <input id="registration-input-password-conf" type="password" name="password-conf" required>
+            </div>
+            <input type="submit" value="Register">
+        </form>
+    </div>
+    <div class="container">
+        <h2>Log in</h2>
+        <form action="/login" method="post">
+            {% csrf_token %}
+            <div class="form-row">
+                <label for="login-input-email">Email:</label>
+                <input id="login-input-email" type="text" name="email" required>
+            </div>
+            <div class="form-row">
+                <label for="login-input-password">Password:</label>
+                <input id="login-input-password" type="password" name="password" required>
+            </div>
+            <input type="submit" value="Login">
+        </form>
+    </div>
+</body>
+</html>

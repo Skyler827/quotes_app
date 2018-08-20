@@ -1,0 +1,109 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Quotes</title>
+    <style>
+    * {
+        margin: 0; padding: 0;
+    }
+    body {
+        background-color: grey;
+    }
+    .message {
+        margin: 20px;
+    }
+    .error {
+        color: red;
+    }
+    .success {
+        color: green;
+    }
+    .info {
+        color: blue;
+    }
+    .outer-container {
+        width: 1000px;
+        margin: 0 auto;
+        background-color: lightgrey;
+        padding: 15px;
+    }
+    h1 {
+        margin: 10px 0;
+    }
+    #logout-button-form {
+        float: right;
+    }
+    .inner-container {
+        display: inline-block;
+        width: 497px;
+        box-sizing: border-box;
+        vertical-align: top;
+    }
+    .quote-list {
+        margin: 5px;
+        border: 1px solid black;
+        padding: 5px;
+    }
+    div.quote {
+        margin: 5px;
+        padding: 5px;
+        border: 2px solid black;
+    }
+    p.quote {
+        margin-bottom: 10px;
+    }
+    span.quote-footnote {
+        color: grey;
+        font-size: 12px;
+        font-style: italic;
+    }
+    a.quote-box-action {
+        float: right;
+        color: white;
+        text-decoration: none;
+        background-color: #375482;
+        padding: 4px;
+        font-size: 12px;
+    }
+    td {
+        padding: 5px;
+    }
+    #new-quote-submit {
+        
+        margin-left: 180px;
+    }
+    </style>
+</head>
+<body>
+    <div class="outer-container">
+        {% if messages %}
+            <ul>
+                {% for message in messages %}
+                    <p class="message {{message.tags}}">{{message.tags}}: {{message}}</p>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <form id="logout-button-form" action="/logout" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="logout">
+            <input id="logout-button" type="submit" value="Log out">
+        </form>
+        <span class="welcome">Welcome {{user.first_name}} {{user.last_name}}!</span>
+        <p><a href="/">← Back to all quotes</a></p>
+        
+        <h3>Quotes spoken by {{speaker.name}}</h3>
+        <h5>Count: {{count}}</h5>
+        <div class="quote-list">
+            {% for quote in quotes %}
+                <div class="quote">
+                    <p class="quote">{{quote.text}}</p>
+                    <span class="quote-footnote">Posted by <a href="/quotes_by_user/{{quote.uploader.id}}">
+                        {{quote.uploader.first_name}} {{quote.uploader.last_name}}</a>
+                    </span>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

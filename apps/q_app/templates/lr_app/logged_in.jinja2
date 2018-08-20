@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Welcome</title>
+    <style>
+    .message {
+        margin: 20px;
+    }
+    .error {
+        color: red;
+    }
+    .success {
+        color: green;
+    }
+    .info {
+        color: blue;
+    }
+
+    </style>
+</head>
+<body>
+    {% if messages %}
+        <ul>
+            {% for message in messages %}
+                <p class="message {{message.tags}}">{{message.tags}}: {{message}}</p>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <h1>Welcome, {{user.first_name}}</h1>
+    <p>Your account was created on {{user.created_at}}</p>
+    <p>Your account was modified on {{user.updated_at}}</p>
+    {% if True %}
+    {% else %}
+    {% endif %}
+    <h3>Users</h3>
+    <ul>
+        {% for u in users %}
+            <li>{{u.first_name}} {{u.last_name}}</li>
+        {% endfor %}
+    </ul>
+    <form action="/logout" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="action" value="logout">
+        <input type="submit" value="Log out">
+    </form>
+</body>
+</html>
