@@ -84,7 +84,7 @@ class SpeakerManager(models.Manager):
             if len(n) == 0:
                 errors.append("speaker name cannot be empty")
             elif len(n) < 4:
-                errors.append(f"speaker name \"{n}\"is too short, must be at least 4 characters")
+                errors.append("speaker name \""+n+"\"is too short, must be at least 4 characters")
             elif len(n) > 99:
                 errors.append("speaker name is too long, must be under 100 characters")
         valid = len(errors) == 0
@@ -121,9 +121,9 @@ class QuoteManager(models.Manager):
                 except ValueError:
                     errors.append("quote ID given is not an integer")
                 except ObjectDoesNotExist:
-                    errors.append(f"No such quote with id: \"{quote_id_n}\"")
+                    errors.append("No such quote with id: \""+quote_id+"\"")
             except ObjectDoesNotExist:
-                errors.append(f"No user found with id: \"{request.session['user_id']}\"")
+                errors.append("No user found with id: \""+request.session['user_id']+"\"")
         else:
             errors.append("Invalid user id")
         valid = len(errors) == 0

@@ -84,7 +84,7 @@ def quotes_new_speaker(request):
 def add_speaker(request):
     valid, errors, speaker = Speaker.objects.validate_request(request.POST)
     if valid:
-        messages.add_message(request, messages.INFO, f"Added new speaker \"{speaker.name}\"")
+        messages.add_message(request, messages.INFO, "Added new speaker \""+speaker.name+"\"")
     else:
         for e in errors:
             messages.add_message(request, messages.ERROR, e)
@@ -92,7 +92,7 @@ def add_speaker(request):
 def add_quote(request):
     valid, errors, quote = Quote.objects.validate_request(request.POST, request.session)
     if valid:
-        messages.add_message(request, messages.INFO, f"Added new quote by \"{quote.speaker.name}\"")
+        messages.add_message(request, messages.INFO, "Added new quote by \""+quote.speaker.name+"\"")
     else:
         for e in errors:
             messages.add_message(request, messages.ERROR, e)
@@ -100,7 +100,7 @@ def add_quote(request):
 def add_quote_to_favs(request, quote_id):
     valid, errors, quote = Quote.objects.validate_add2favs_request(request, quote_id)
     if valid:
-        messages.add_message(request, messages.INFO, f"Added new quote by \"{quote.speaker.name}\" to your favorites")
+        messages.add_message(request, messages.INFO, "Added new quote by \""+quote.speaker.name+"\" to your favorites")
     else:
         for e in errors:
             messages.add_message(request, messages.ERROR, e)
